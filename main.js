@@ -1,5 +1,6 @@
 const lidHeight = 10;
 const shutters = document.getElementsByClassName("shutter");
+const lidOpenInterval = 100; //ms
 
 for (shutter of shutters) {
   initShutter(shutter);
@@ -28,7 +29,7 @@ function toggleLids(shutter, isOpen) {
       } else {
         lid.classList.remove("up");
       }
-    }, 100 * i);
+    }, lidOpenInterval * i);
   }
 }
 
@@ -37,12 +38,12 @@ function pullShutter(shutter, isOpen) {
     toggleLids(shutter, true);
     window.setTimeout(() => {
       shutter.classList.add("up");
-    }, shutter.getAttribute("numLids") * 100);
+    }, (shutter.getAttribute("numLids") - 5)  * lidOpenInterval);
   } else {
     shutter.classList.remove("up");
     window.setTimeout(() => {
       toggleLids(shutter, false);
-    }, 2000);
+    }, (shutter.getAttribute("numLids") - 2) * lidOpenInterval);
   }
 }
 
@@ -51,7 +52,7 @@ openButton.addEventListener("click", () => {
   for (let i = 0; i < shutters.length; i += 1) {
     window.setTimeout(() => {
       pullShutter(shutters[i], true);
-    }, 1000 * Math.random() * 3 + 1000);
+    }, i * 1000 * Math.random());
   }
 });
 
