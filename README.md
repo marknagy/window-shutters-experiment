@@ -1,0 +1,1 @@
+# Windows with animated shutters
